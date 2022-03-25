@@ -1,13 +1,13 @@
 <template>
+	
 	<el-dialog :title="type == 'add' ? '添加分类' : '修改分类'" :close-on-click-modal="false" :visible.sync="visible"
 		width="400px" @close="handleClose">
+		//测试
 		<el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px">
 			<el-form-item label="分类名称" prop="category_name">
 				<el-input type="text" v-model="ruleForm.category_name"></el-input>
 			</el-form-item>
-
-			<el-form-item label="父级分类:" >
-				
+			<el-form-item label="父级分类:" >		
 				<el-cascader  v-model="selectedKeys" :options="parentCateList"
 					:props="cascaderProps" @change="parentCateChanged" clearable v-if="id==''">
 				</el-cascader>
