@@ -1,13 +1,13 @@
 <template>
-	<div >
-		<h1>首页</h1>
-	</div>
+  <div>
+    <h1>首页</h1>
+  </div>
 </template>
 
 <script>
-	export default{
-		name:'introduce'
-	}
+export default {
+    name: 'Introduce',
+}
 </script>
 
 <style>
