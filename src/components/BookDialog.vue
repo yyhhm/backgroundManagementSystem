@@ -1,8 +1,22 @@
 <template>
-    <el-dialog :title="type == 'add' ? '添加图书' : '修改图书'" :close-on-click-modal="false" :visible.sync="visible" width="600px" @close="handleClose">
+    <el-dialog
+        :title="type == 'add' ? '添加图书' : '修改图书'"
+        :close-on-click-modal="false"
+        :visible.sync="visible"
+        width="600px"
+        @close="handleClose"
+    >
         <el-form ref="refForm" :model="bookForm" :rules="rules" label-width="100px">
             <el-form-item label="图书分类" prop="selectedKeys">
-                <el-cascader v-model="bookForm.selectedKeys" style="width: 300px" :options="cateList" :props="cascaderProps" @change="handleChangeCate" clearable placeholder="只能选择第三级">
+                <el-cascader
+                    v-model="bookForm.selectedKeys"
+                    style="width: 300px"
+                    :options="cateList"
+                    :props="cascaderProps"
+                    @change="handleChangeCate"
+                    clearable
+                    placeholder="只能选择第三级"
+                >
                 </el-cascader>
             </el-form-item>
             <el-form-item label="图书名" prop="name">
@@ -34,14 +48,25 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="图书主图" prop="file">
-                <el-upload accept="jpg,jpeg,png" :class="{disUoloadSty:noneBtnImg}" :limit=this.limit action="/admin/upload" :on-success="handleUrlSuccess" :on-remove="handleRemove" ref="upload" list-type="picture-card"
-                    :file-list="bookForm.file" :on-change="handleChange" :auto-upload="false">
+                <el-upload
+                    accept="jpg,jpeg,png"
+                    :class="{ disUoloadSty: noneBtnImg }"
+                    :limit="this.limit"
+                    action="/admin/upload"
+                    :on-success="handleUrlSuccess"
+                    :on-remove="handleRemove"
+                    ref="upload"
+                    list-type="picture-card"
+                    :file-list="bookForm.file"
+                    :on-change="handleChange"
+                    :auto-upload="false"
+                >
                     <i class="el-icon-plus"></i>
                 </el-upload>
             </el-form-item>
 
             <el-form-item label="详情" pro="bookDetailContent">
-                <Editor @change="getDetail" :content="bookForm.detailContent" ref='editor'></Editor>
+                <Editor @change="getDetail" :content="bookForm.detailContent" ref="editor"></Editor>
             </el-form-item>
 
             <!-- <el-form-item>
@@ -60,11 +85,11 @@ import Editor from './Editor.vue'
 export default {
     name: 'AddBook',
     components: {
-        Editor
+        Editor,
     },
     props: {
         reload: Function,
-        type: String
+        type: String,
     },
 
     data() {
@@ -109,13 +134,13 @@ export default {
                 stockNum: '',
                 sellStatus: 0,
                 author: '',
-                publish: ''
+                publish: '',
             },
             // 级联选择器配置对象
             cascaderProps: {
                 value: 'categoryId',
                 label: 'categoryName',
-                children: 'children'
+                children: 'children',
             },
             // 获取分类Id
             categoryId: '',
@@ -125,87 +150,87 @@ export default {
                     {
                         required: true, // 是否必填
                         message: '必须选择第三级数据', // 规则
-                        trigger: 'change' // 何事件触发
-                    }
+                        trigger: 'change', // 何事件触发
+                    },
                 ],
                 file: [
                     {
                         required: true, // 是否必填
                         message: '图片不能为空', // 规则
-                        trigger: 'change' // 何事件触发
-                    }
+                        trigger: 'change', // 何事件触发
+                    },
                 ],
 
                 name: [
                     {
                         required: true, // 是否必填
                         message: '图书名不能为空', // 规则
-                        trigger: 'change' // 何事件触发
-                    }
+                        trigger: 'change', // 何事件触发
+                    },
                 ],
                 intro: [
                     {
                         message: '简介长度不能超过200字符',
                         max: 200, // 规则
-                        trigger: 'change' // 何事件触发
-                    }
+                        trigger: 'change', // 何事件触发
+                    },
                 ],
 
                 originalPrice: [
                     {
                         required: true, // 是否必填
                         message: '原价不能为空', // 规则
-                        trigger: 'change' // 何事件触发
+                        trigger: 'change', // 何事件触发
                     },
                     {
                         validator: validateCheckPrice,
-                        trigger: 'change'
-                    }
+                        trigger: 'change',
+                    },
                 ],
                 sellingPrice: [
                     {
                         required: true, // 是否必填
                         message: '实际售价不能为空', // 规则
-                        trigger: 'change' // 何事件触发
+                        trigger: 'change', // 何事件触发
                     },
                     {
                         validator: validateCheckPrice,
-                        trigger: 'change'
-                    }
+                        trigger: 'change',
+                    },
                 ],
                 stockNum: [
                     {
                         required: true, // 是否必填
                         message: '库存不能为空', // 规则
-                        trigger: 'change' // 何事件触发
-                    }
+                        trigger: 'change', // 何事件触发
+                    },
                 ],
 
                 author: [
                     {
                         required: true, // 是否必填
                         message: '作者不为空', // 规则
-                        trigger: 'change' // 何事件触发
+                        trigger: 'change', // 何事件触发
                     },
                     {
                         message: '长度不能超过10字符',
                         max: 10, // 规则
-                        trigger: 'change' // 何事件触发
-                    }
+                        trigger: 'change', // 何事件触发
+                    },
                 ],
                 publish: [
                     {
                         required: true, // 是否必填
                         message: '出版社不能为空', // 规则
-                        trigger: 'change' // 何事件触发
+                        trigger: 'change', // 何事件触发
                     },
                     {
                         message: '长度不能超过20字符',
                         max: 20, // 规则
-                        trigger: 'change' // 何事件触发
-                    }
-                ]
-            }
+                        trigger: 'change', // 何事件触发
+                    },
+                ],
+            },
         }
     },
     methods: {
@@ -274,7 +299,7 @@ export default {
 
         async submitAdd() {
             // 先做验证
-            await this.$refs.refForm.validate(valid => {
+            await this.$refs.refForm.validate((valid) => {
                 if (valid) {
                     console.log('hggtrf' + this.imgCount)
                     if (this.id && this.imgCount === this.bookForm.file.length) {
@@ -301,11 +326,11 @@ export default {
                 bookSellStatus: this.bookForm.sellStatus,
                 bookAuthor: this.bookForm.author,
                 bookPublish: this.bookForm.publish,
-                bookCategoryPid: this.categoryPid
+                bookCategoryPid: this.categoryPid,
             }
             if (this.id) {
                 data.bookId = this.id
-                await this.$axios.put('/books', data).then(res => {
+                await this.$axios.put('/books', data).then((res) => {
                     console.log(res)
                     if (res.code === 200) {
                         this.$message.success('修改成功')
@@ -319,7 +344,7 @@ export default {
                     }
                 })
             } else {
-                this.$axios.post('/books', data).then(res => {
+                this.$axios.post('/books', data).then((res) => {
                     console.log(res)
                     if (res.code === 200) {
                         this.$message.success('添加成功')
@@ -340,10 +365,10 @@ export default {
             await this.$axios
                 .get('/categories', {
                     params: {
-                        type: 3
-                    }
+                        type: 3,
+                    },
                 })
-                .then(res => {
+                .then((res) => {
                     this.cateList = res.data
                 })
         },
@@ -377,7 +402,7 @@ export default {
         },
         // 通过id获取到数据
         async getBookDetail(id) {
-            await this.$axios.get(`/books/${id}`).then(res => {
+            await this.$axios.get(`/books/${id}`).then((res) => {
                 this.bookForm.selectedKeys = res.data.list
                 this.bookForm.coverImg = res.data.bookCoverImg
                 this.bookForm.name = res.data.bookName
@@ -408,10 +433,10 @@ export default {
             this.visible = false
             this.$refs.refForm.resetFields()
             this.imgCount = 0
-        }
+        },
     },
     mounted() {},
-    created() {}
+    created() {},
 }
 </script>
 

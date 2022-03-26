@@ -1,88 +1,84 @@
 <template>
-  <div>
-    <el-card class="category-container">
-      <template #header>
-        <div class="header">
-          <el-button type="primary"
-                     size="small"
-                     icon="el-icon-plus"
-                     @click="handleAdd">增加</el-button>
-        </div>
-      </template>
+    <div>
+        <el-card class="category-container">
+            <template #header>
+                <div class="header">
+                    <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd"
+                        >增加</el-button
+                    >
+                </div>
+            </template>
 
-      <el-table v-loading="loading"
+            <el-table
+                v-loading="loading"
                 :data="catelist"
-                style="width: 100%;margin-bottom: 20px;"
+                style="width: 100%; margin-bottom: 20px"
                 row-key="categoryId"
                 border
                 height="280"
-                :tree-props="{children: 'children'}">
-        <el-table-column prop="categoryName"
-                         label="分类名称">
-        </el-table-column>
-        <el-table-column label="是否有效"
-                         width="100">
-          <template slot-scope="scope">
-            <i class="el-icon-success"
-               v-if="scope.row.isOk === true"
-               style="color: lightgreen"></i>
-            <i class="el-icon-error"
-               v-else
-               style="color: red"></i>
-          </template>
-        </el-table-column>
-        <el-table-column label="级别"
-                         width="100">
-          <template slot-scope="scope">
-            <el-tag size="mini"
-                    v-if="scope.row.categoryLevel === 1">一级</el-tag>
-            <el-tag type="success"
-                    size="mini"
-                    v-else-if="scope.row.categoryLevel === 2">二级</el-tag>
-            <el-tag type="warning"
-                    size="mini"
-                    v-else>三级</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="categoryRank"
-                         label="排序值"
-                         width="100">
-        </el-table-column>
-        <el-table-column label="创建时间">
-          <template slot-scope="scope">
-            <span>{{scope.row.createTime.toLocaleString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button type="primary"
-                       icon="el-icon-edit"
-                       size="mini"
-                       @click="showEditCateDialog(scope.row.categoryId)">
-              编辑
-            </el-button>
-          </template>
-        </el-table-column>
-
-      </el-table>
-      <div class="block">
-        <el-pagination @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="queryInfo.pageNum"
-                       :page-sizes="[3, 5, 7, 9]"
-                       :page-size="queryInfo.pageSize"
-                       layout="total, sizes, prev, pager, next, jumper"
-                       :total="total">
-        </el-pagination>
-      </div>
-      <!-- <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
+                :tree-props="{ children: 'children' }"
+            >
+                <el-table-column prop="categoryName" label="分类名称"> </el-table-column>
+                <el-table-column label="是否有效" width="100">
+                    <template slot-scope="scope">
+                        <i
+                            class="el-icon-success"
+                            v-if="scope.row.isOk === true"
+                            style="color: lightgreen"
+                        ></i>
+                        <i class="el-icon-error" v-else style="color: red"></i>
+                    </template>
+                </el-table-column>
+                <el-table-column label="级别" width="100">
+                    <template slot-scope="scope">
+                        <el-tag size="mini" v-if="scope.row.categoryLevel === 1">一级</el-tag>
+                        <el-tag type="success" size="mini" v-else-if="scope.row.categoryLevel === 2"
+                            >二级</el-tag
+                        >
+                        <el-tag type="warning" size="mini" v-else>三级</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="categoryRank" label="排序值" width="100"> </el-table-column>
+                <el-table-column label="创建时间">
+                    <template slot-scope="scope">
+                        <span>{{
+                            scope.row.createTime
+                                .toLocaleString()
+                                .replace(/T/g, ' ')
+                                .replace(/\.[\d]{3}Z/, '')
+                        }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button
+                            type="primary"
+                            icon="el-icon-edit"
+                            size="mini"
+                            @click="showEditCateDialog(scope.row.categoryId)"
+                        >
+                            编辑
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="block">
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="queryInfo.pageNum"
+                    :page-sizes="[3, 5, 7, 9]"
+                    :page-size="queryInfo.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total"
+                >
+                </el-pagination>
+            </div>
+            <!-- <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
 				:current-page="currentPage" @current-change="changePage" /> -->
-    </el-card>
-    <AddCategoryDialiog ref='addDialog'
-                        :reload="getCategory"
-                        :type="type" />
-  </div>
-
+        </el-card>
+        <AddCategoryDialiog ref="addDialog" :reload="getCategory" :type="type" />
+    </div>
 </template>
 <script>
 import AddCategoryDialiog from '../components/AddCategoryDialog.vue'
@@ -117,12 +113,12 @@ export default {
                 .get('/categories', {
                     params: this.queryInfo,
                 })
-                .then(res => {
+                .then((res) => {
                     this.catelist = res.data.list
                     this.total = res.data.total
                     this.loading = false
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error)
                 })
         },

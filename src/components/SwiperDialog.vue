@@ -1,14 +1,27 @@
 <template>
-    <el-dialog :title="id == '' ? '添加轮播图' : '修改轮播图'" :close-on-click-modal="false" :visible.sync="visible" width="400px" @close="handleClose">
+    <el-dialog
+        :title="id == '' ? '添加轮播图' : '修改轮播图'"
+        :close-on-click-modal="false"
+        :visible.sync="visible"
+        width="400px"
+        @close="handleClose"
+    >
         <el-form :model="ruleForm" :rules="rules" ref="formlRef" label-width="100px">
             <el-form-item label="轮播图" prop="imageUrl">
-                <el-upload accept="jpg,jpeg,png" action="/admin/upload" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeAvatarUpload" class="avatar-uploader">
-                    <img v-if="ruleForm.imageUrl" :src="ruleForm.imageUrl" class="avatar">
+                <el-upload
+                    accept="jpg,jpeg,png"
+                    action="/admin/upload"
+                    :show-file-list="false"
+                    :on-success="handleSuccess"
+                    :before-upload="beforeAvatarUpload"
+                    class="avatar-uploader"
+                >
+                    <img v-if="ruleForm.imageUrl" :src="ruleForm.imageUrl" class="avatar" />
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
             <el-form-item label="排序值" prop="carousel_rank">
-                <el-input type="number" max='200' v-model="ruleForm.carousel_rank"></el-input>
+                <el-input type="number" max="200" v-model="ruleForm.carousel_rank"></el-input>
             </el-form-item>
         </el-form>
         <template #footer>
@@ -25,7 +38,7 @@ export default {
     name: 'SwiperDialog',
     props: {
         // type: String,
-        reload: Function
+        reload: Function,
     },
     data() {
         return {
@@ -41,24 +54,24 @@ export default {
                 // 提交的数据
                 carousel_rank: '',
                 // 显示图片用的
-                imageUrl: ''
+                imageUrl: '',
             },
             rules: {
                 imageUrl: [
                     {
                         required: 'true',
                         message: '图片不能为空',
-                        trigger: 'change'
-                    }
+                        trigger: 'change',
+                    },
                 ],
                 carousel_rank: [
                     {
                         required: 'true',
                         message: '排序值不能为空',
-                        trigger: 'change'
-                    }
-                ]
-            }
+                        trigger: 'change',
+                    },
+                ],
+            },
         }
     },
     methods: {
@@ -74,8 +87,8 @@ export default {
         async delUrl(file) {
             await this.$axios.delete('/deleteFile', {
                 params: {
-                    path: file
-                }
+                    path: file,
+                },
             })
         },
         beforeAvatarUpload(file) {
@@ -120,7 +133,7 @@ export default {
                             .put('/carousel', {
                                 carouselId: this.id,
                                 carouselUrl: this.carousel_url,
-                                carouselRank: this.ruleForm.carousel_rank
+                                carouselRank: this.ruleForm.carousel_rank,
                             })
                             .then(() => {
                                 this.isSubmit = true
@@ -129,14 +142,14 @@ export default {
                                 this.visible = false
                                 this.$message({
                                     message: '修改成功',
-                                    type: 'success'
+                                    type: 'success',
                                 })
                             })
                     } else {
                         this.$axios
                             .post('/carousel', {
                                 carouselUrl: this.carousel_url,
-                                carouselRank: this.ruleForm.carousel_rank
+                                carouselRank: this.ruleForm.carousel_rank,
                             })
                             .then(() => {
                                 this.isSubmit = true
@@ -144,14 +157,14 @@ export default {
                                 this.visible = false
                                 this.$message({
                                     message: '添加成功',
-                                    type: 'success'
+                                    type: 'success',
                                 })
                             })
                     }
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

@@ -11,21 +11,21 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.use(router)
 Vue.use(ElementUI)
-Object.keys(filters).forEach(key => {
+Object.keys(filters).forEach((key) => {
     Vue.filter(key, filters[key])
 })
 router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
         next()
     } else {
-        axios.get('/token').then(res => {
+        axios.get('/token').then((res) => {
             if (res.code === 200) {
                 next()
             }
         })
     }
 })
-router.afterEach(to => {
+router.afterEach((to) => {
     const { id } = to.query
     let title = to.meta.title
     if (id && to.name === 'add') {
@@ -42,7 +42,7 @@ new Vue({
         App,
     },
     template: '<App/>',
-    render: h => h(App),
+    render: (h) => h(App),
 })
 
 // new Vue({

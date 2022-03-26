@@ -1,20 +1,25 @@
 <template>
     <div class="header">
         <div class="left">
-            <span style="font-size: 20px">{{ this.$store.getters.title}}</span>
+            <span style="font-size: 20px">{{ this.$store.getters.title }}</span>
         </div>
         <div class="right">
-            <el-popover placement="bottom" :width="320" trigger="click" popper-class="popper-user-box">
+            <el-popover
+                placement="bottom"
+                :width="320"
+                trigger="click"
+                popper-class="popper-user-box"
+            >
                 <template #reference>
                     <div class="author">
                         <i class="icon el-icon-s-custom" />
-                        {{ userInfo && userInfo.nickName || '' }}
+                        {{ (userInfo && userInfo.nickName) || '' }}
                         <i class="el-icon-caret-bottom" />
                     </div>
                 </template>
                 <div class="nickname">
-                    <p>登录名：{{ userInfo && userInfo.loginName || '' }}</p>
-                    <p>昵称：{{ userInfo && userInfo.nickName || '' }}</p>
+                    <p>登录名：{{ (userInfo && userInfo.loginName) || '' }}</p>
+                    <p>昵称：{{ (userInfo && userInfo.nickName) || '' }}</p>
                     <el-button size="small" type="primary" @click="logout">退出</el-button>
                 </div>
             </el-popover>
@@ -30,7 +35,7 @@ export default {
         return {
             userInfo: null,
             hasBack: false,
-            name: '系统介绍'
+            name: '系统介绍',
         }
     },
 
@@ -45,14 +50,14 @@ export default {
                 window.localStorage.removeItem('token')
                 window.location.reload()
             })
-        }
+        },
     },
     mounted() {
         const pathname = window.location.hash.split('/')[1] || ''
         if (!['login'].includes(pathname)) {
             this.getUserInfo()
         }
-    }
+    },
 }
 </script>
 <style scoped>
@@ -80,5 +85,4 @@ export default {
     cursor: pointer;
 }
 </style>
-<style>
-</style>
+<style></style>

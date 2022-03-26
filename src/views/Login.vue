@@ -1,16 +1,32 @@
 <template>
     <div class="login-container">
         <h3 class="title">后台管理系统</h3>
-        <el-form label-position="top" :rules="rules" :model="ruleForm" ref="loginForm" class="login-form">
+        <el-form
+            label-position="top"
+            :rules="rules"
+            :model="ruleForm"
+            ref="loginForm"
+            class="login-form"
+        >
             <el-form-item label="账号" prop="username">
-                <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off"></el-input>
+                <el-input
+                    type="text"
+                    v-model.trim="ruleForm.username"
+                    autocomplete="off"
+                ></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off"></el-input>
+                <el-input
+                    type="password"
+                    v-model.trim="ruleForm.password"
+                    autocomplete="off"
+                ></el-input>
             </el-form-item>
             <el-form-item>
                 <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
-                <el-button style="width: 100%" type="primary" @click="submitForm">立即登录</el-button>
+                <el-button style="width: 100%" type="primary" @click="submitForm"
+                    >立即登录</el-button
+                >
             </el-form-item>
         </el-form>
     </div>
@@ -23,24 +39,24 @@ export default {
         return {
             ruleForm: {
                 username: '',
-                password: ''
+                password: '',
             },
             rules: {
                 username: [
                     {
                         required: 'true',
                         message: '账户不能为空',
-                        trigger: 'blur'
-                    }
+                        trigger: 'blur',
+                    },
                 ],
                 password: [
                     {
                         required: 'true',
                         message: '密码不能为空',
-                        trigger: 'blur'
-                    }
-                ]
-            }
+                        trigger: 'blur',
+                    },
+                ],
+            },
         }
     },
 
@@ -51,7 +67,7 @@ export default {
                     this.$axios
                         .post('/login', {
                             loginName: this.ruleForm.username,
-                            loginPassword: this.ruleForm.password
+                            loginPassword: this.ruleForm.password,
                         })
                         .then(res => {
                             if (res.code === 200) {
@@ -66,8 +82,8 @@ export default {
                     return false
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

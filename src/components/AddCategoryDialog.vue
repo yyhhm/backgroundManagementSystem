@@ -1,12 +1,25 @@
 <template>
-    <el-dialog :title="type == 'add' ? '添加分类' : '修改分类'" :close-on-click-modal="false" :visible.sync="visible" width="400px" @close="handleClose">
+    <el-dialog
+        :title="type == 'add' ? '添加分类' : '修改分类'"
+        :close-on-click-modal="false"
+        :visible.sync="visible"
+        width="400px"
+        @close="handleClose"
+    >
         //测试
         <el-form ref="formRef" :model="ruleForm" :rules="rules" label-width="100px">
             <el-form-item label="分类名称" prop="category_name">
                 <el-input v-model="ruleForm.category_name" type="text"></el-input>
             </el-form-item>
             <el-form-item label="父级分类:">
-                <el-cascader v-if="id == ''" v-model="selectedKeys" :options="parentCateList" :props="cascaderProps" clearable @change="parentCateChanged">
+                <el-cascader
+                    v-if="id == ''"
+                    v-model="selectedKeys"
+                    :options="parentCateList"
+                    :props="cascaderProps"
+                    clearable
+                    @change="parentCateChanged"
+                >
                 </el-cascader>
                 <el-breadcrumb v-else separator="/" style="line-height: 40px">
                     <el-breadcrumb-item v-for="(item, index) in catName" :key="index">
@@ -36,7 +49,7 @@ export default {
     name: 'AddCategoryDialog',
     props: {
         type: String,
-        reload: Function
+        reload: Function,
     },
     data() {
         return {
@@ -54,7 +67,7 @@ export default {
                 label: 'categoryName',
                 children: 'children',
                 expandTrigger: 'hover',
-                checkStrictly: true
+                checkStrictly: true,
             },
             category_level: 1,
             parent_id: 0,
@@ -63,7 +76,7 @@ export default {
             ruleForm: {
                 category_name: '',
                 category_rank: '',
-                is_ok: true
+                is_ok: true,
             },
             // 校验规则 prop的名字
             rules: {
@@ -71,17 +84,17 @@ export default {
                     {
                         required: 'true',
                         message: '名称不能为空',
-                        trigger: 'change'
-                    }
+                        trigger: 'change',
+                    },
                 ],
                 category_rank: [
                     {
                         required: 'true',
                         message: '排序值不能为空',
-                        trigger: 'change'
-                    }
-                ]
-            }
+                        trigger: 'change',
+                    },
+                ],
+            },
         }
     },
     methods: {
@@ -103,7 +116,7 @@ export default {
 
         // 获取分类详情
         async getDetail(id) {
-            await this.$axios.get(`/categories/${id}`).then(res => {
+            await this.$axios.get(`/categories/${id}`).then((res) => {
                 this.ruleForm.category_name = res.data.categoryName
                 this.ruleForm.category_rank = res.data.categoryRank
                 this.ruleForm.is_ok = res.data.isOk
@@ -116,10 +129,10 @@ export default {
             await this.$axios
                 .get('/getParentId', {
                     params: {
-                        id: id
-                    }
+                        id: id,
+                    },
                 })
-                .then(res => {
+                .then((res) => {
                     this.catName = res.data
                 })
         },
@@ -129,10 +142,10 @@ export default {
             this.$axios
                 .get('/categories', {
                     params: {
-                        type: 2
-                    }
+                        type: 2,
+                    },
                 })
-                .then(res => {
+                .then((res) => {
                     this.parentCateList = res.data
                 })
         },
@@ -155,7 +168,7 @@ export default {
         },
         // 提交
         submitForm() {
-            this.$refs.formRef.validate(valid => {
+            this.$refs.formRef.validate((valid) => {
                 if (valid) {
                     if (this.type === 'add') {
                         this.$axios
@@ -164,14 +177,14 @@ export default {
                                 parentId: this.parent_id,
                                 categoryName: this.ruleForm.category_name,
                                 categoryRank: this.ruleForm.category_rank,
-                                isOk: this.ruleForm.is_ok
+                                isOk: this.ruleForm.is_ok,
                             })
                             .then(() => {
                                 this.visible = false
                                 this.reload()
                                 this.$message({
                                     message: '添加成功',
-                                    type: 'success'
+                                    type: 'success',
                                 })
                             })
                     } else {
@@ -182,14 +195,14 @@ export default {
                                 parentId: this.parent_id,
                                 categoryName: this.ruleForm.category_name,
                                 categoryRank: this.ruleForm.category_rank,
-                                isOk: this.ruleForm.is_ok
+                                isOk: this.ruleForm.is_ok,
                             })
                             .then(() => {
                                 this.visible = false
                                 this.reload()
                                 this.$message({
                                     message: '修改成功',
-                                    type: 'success'
+                                    type: 'success',
                                 })
                             })
                     }
@@ -209,8 +222,8 @@ export default {
             this.parent_id = 0
             // 当前分类的等级
             this.category_level = 1
-        }
-    }
+        },
+    },
 }
 </script>
 <style scoped></style>

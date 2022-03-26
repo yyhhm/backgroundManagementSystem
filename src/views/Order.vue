@@ -1,125 +1,130 @@
 <template>
-  <el-card class="order-container">
-    <template #header>
-      <div class="header">
-        <el-select @change="handleOption"
-                   v-model="orderStatus"
-                   size="small"
-                   style="width: 200px; margin-right: 10px">
-          <el-option v-for="item in options"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value" />
-        </el-select>
-        <!-- <el-button type="primary" size="small" icon="el-icon-edit">修改订单</el-button> -->
-        <el-button type="primary"
-                   size="small"
-                   icon="el-icon-s-home"
-                   @click="handleConfig()">配货完成</el-button>
-        <el-button type="primary"
-                   size="small"
-                   icon="el-icon-s-home"
-                   @click="handleSend()">出库</el-button>
-        <el-button type="danger"
-                   size="small"
-                   icon="el-icon-circle-close"
-                   @click="handleClose()">关闭订单</el-button>
-        <el-button type="danger"
-                   size="small"
-                   icon="el-icon-delete"
-                   @click="handleRefund()">同意退款</el-button>
-      </div>
-    </template>
-    <el-table v-loading="loading"
-              :data="tableData"
-              tooltip-effect="dark"
-              style="width: 100%"
-              @selection-change="handleSelectionChange">
-      <el-table-column type="selection"
-                       width="55">
-      </el-table-column>
-      <el-table-column prop="orderNo"
-                       label="订单号"
-                       width="200">
-      </el-table-column>
-      <el-table-column prop="totalPrice"
-                       label="订单总价"
-                       width="120">
-      </el-table-column>
-      <el-table-column prop="orderStatus"
-                       label="订单状态"
-                       width="120">
-        <template #default="scope">
-          <span>{{scope.row.orderStatus | orderMap }}</span>
+    <el-card class="order-container">
+        <template #header>
+            <div class="header">
+                <el-select
+                    @change="handleOption"
+                    v-model="orderStatus"
+                    size="small"
+                    style="width: 200px; margin-right: 10px"
+                >
+                    <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
+                </el-select>
+                <!-- <el-button type="primary" size="small" icon="el-icon-edit">修改订单</el-button> -->
+                <el-button type="primary" size="small" icon="el-icon-s-home" @click="handleConfig()"
+                    >配货完成</el-button
+                >
+                <el-button type="primary" size="small" icon="el-icon-s-home" @click="handleSend()"
+                    >出库</el-button
+                >
+                <el-button
+                    type="danger"
+                    size="small"
+                    icon="el-icon-circle-close"
+                    @click="handleClose()"
+                    >关闭订单</el-button
+                >
+                <el-button type="danger" size="small" icon="el-icon-delete" @click="handleRefund()"
+                    >同意退款</el-button
+                >
+            </div>
         </template>
-      </el-table-column>
-      <el-table-column label="支付方式"
-                       width="120">
-        <template #default='scope'>
-          <span v-if="scope.row.payType == 1">微信支付</span>
-          <span v-else-if="scope.row.payType == 2">支付宝支付</span>
-          <span v-else>未支付</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间">
-        <template #default='scope'>
-          {{scope.row.createTime | time}}
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-popconfirm v-if="scope.row.orderStatus == 1"
-                         title="确定配货吗？"
-                         @confirm="handleConfig(scope.row.orderId)"
-                         class="pr-10">
-            <template slot="reference">
-              <el-button type="text">配货</el-button>
-
-            </template>
-          </el-popconfirm>
-          <el-popconfirm v-if="scope.row.orderStatus == 2"
-                         title="确定出库吗？"
-                         @confirm="handleSend(scope.row.orderId)"
-                         class="pr-10">
-            <template #reference>
-              <el-button type="text">出库</el-button>
-
-            </template>
-          </el-popconfirm>
-          <el-popconfirm v-if="scope.row.orderStatus == 0 "
-                         title="确定关闭订单吗？"
-                         @confirm="handleClose(scope.row.orderId)"
-                         class="pr-10">
-            <template #reference>
-              <el-button type="text">取消订单</el-button>
-            </template>
-          </el-popconfirm>
-          <el-popconfirm v-if="scope.row.orderStatus == -3 "
-                         title="确定退款吗？"
-                         @confirm="handleRefund(scope.row.orderId)"
-                         class="pr-10">
-            <template #reference>
-              <el-button type="text">同意退款</el-button>
-            </template>
-          </el-popconfirm>
-          <router-link :to="{ path: '/orderDetail', query: { orderId: scope.row.orderId }}">
-            <el-button type="text">订单详情</el-button>
-          </router-link>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!--总数超过一页，再展示分页器-->
-    <div class="block">
-      <el-pagination @size-change="handleSizeChange"
-                     @current-change="handleCurrentChange"
-                     :current-page="currentPage"
-                     :page-sizes="[10,20,30,40]"
-                     :page-size="pageSize"
-                     layout="total, sizes, prev, pager, next, jumper"
-                     :total="total">
-      </el-pagination>
-    </div>
-  </el-card>
+        <el-table
+            v-loading="loading"
+            :data="tableData"
+            tooltip-effect="dark"
+            style="width: 100%"
+            @selection-change="handleSelectionChange"
+        >
+            <el-table-column type="selection" width="55"> </el-table-column>
+            <el-table-column prop="orderNo" label="订单号" width="200"> </el-table-column>
+            <el-table-column prop="totalPrice" label="订单总价" width="120"> </el-table-column>
+            <el-table-column prop="orderStatus" label="订单状态" width="120">
+                <template #default="scope">
+                    <span>{{ scope.row.orderStatus | orderMap }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="支付方式" width="120">
+                <template #default="scope">
+                    <span v-if="scope.row.payType == 1">微信支付</span>
+                    <span v-else-if="scope.row.payType == 2">支付宝支付</span>
+                    <span v-else>未支付</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="创建时间">
+                <template #default="scope">
+                    {{ scope.row.createTime | time }}
+                </template>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template #default="scope">
+                    <el-popconfirm
+                        v-if="scope.row.orderStatus == 1"
+                        title="确定配货吗？"
+                        @confirm="handleConfig(scope.row.orderId)"
+                        class="pr-10"
+                    >
+                        <template slot="reference">
+                            <el-button type="text">配货</el-button>
+                        </template>
+                    </el-popconfirm>
+                    <el-popconfirm
+                        v-if="scope.row.orderStatus == 2"
+                        title="确定出库吗？"
+                        @confirm="handleSend(scope.row.orderId)"
+                        class="pr-10"
+                    >
+                        <template #reference>
+                            <el-button type="text">出库</el-button>
+                        </template>
+                    </el-popconfirm>
+                    <el-popconfirm
+                        v-if="scope.row.orderStatus == 0"
+                        title="确定关闭订单吗？"
+                        @confirm="handleClose(scope.row.orderId)"
+                        class="pr-10"
+                    >
+                        <template #reference>
+                            <el-button type="text">取消订单</el-button>
+                        </template>
+                    </el-popconfirm>
+                    <el-popconfirm
+                        v-if="scope.row.orderStatus == -3"
+                        title="确定退款吗？"
+                        @confirm="handleRefund(scope.row.orderId)"
+                        class="pr-10"
+                    >
+                        <template #reference>
+                            <el-button type="text">同意退款</el-button>
+                        </template>
+                    </el-popconfirm>
+                    <router-link
+                        :to="{ path: '/orderDetail', query: { orderId: scope.row.orderId } }"
+                    >
+                        <el-button type="text">订单详情</el-button>
+                    </router-link>
+                </template>
+            </el-table-column>
+        </el-table>
+        <!--总数超过一页，再展示分页器-->
+        <div class="block">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+            >
+            </el-pagination>
+        </div>
+    </el-card>
 </template>
 
 <script>
@@ -192,7 +197,7 @@ export default {
                         }
                     }
 
-                    ids = this.multipleSelection.map((item) => item.orderId)
+                    ids = this.multipleSelection.map(item => item.orderId)
                 }
                 this.$axios
                     .put(`/order/${2}`, {
@@ -219,7 +224,7 @@ export default {
                             return
                         }
                     }
-                    ids = this.multipleSelection.map((item) => item.orderId)
+                    ids = this.multipleSelection.map(item => item.orderId)
                 }
                 this.$axios
                     .put(`/order/${3}`, {
@@ -242,13 +247,11 @@ export default {
                 } else {
                     for (let i = 0; i < this.multipleSelection.length; i++) {
                         if (!this.multipleSelection[i].orderStatus === 0) {
-                            this.$message.error(
-                                '某些订单状态不是未支付，不能关闭'
-                            )
+                            this.$message.error('某些订单状态不是未支付，不能关闭')
                             return
                         }
                     }
-                    ids = this.multipleSelection.map((item) => item.orderId)
+                    ids = this.multipleSelection.map(item => item.orderId)
                 }
                 this.$axios
                     .put(`/order/${-2}`, {
@@ -271,13 +274,11 @@ export default {
                 } else {
                     for (let i = 0; i < this.multipleSelection.length; i++) {
                         if (this.multipleSelection[i].orderStatus !== -3) {
-                            this.$message.error(
-                                '某些订单状态，不是用户退款状态，不能退款'
-                            )
+                            this.$message.error('某些订单状态，不是用户退款状态，不能退款')
                             return
                         }
                     }
-                    ids = this.multipleSelection.map((item) => item.orderId)
+                    ids = this.multipleSelection.map(item => item.orderId)
                 }
                 this.$axios
                     .put(`/order/${-4}`, {
@@ -317,7 +318,7 @@ export default {
                     pageSize: this.pageSize,
                     orderStatus: this.orderStatus,
                 },
-            }).then((res) => {
+            }).then(res => {
                 this.tableData = res.data.list
                 this.total = res.data.total
                 this.loading = false

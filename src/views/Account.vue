@@ -3,7 +3,14 @@
         <el-card>
             <!-- label-width	表单域标签的宽度
 			label-position	表单域标签的位置 -->
-            <el-form :model="nameForm" :rules="rules" ref="nameRef" label-width="80px" label-position="right" class="demo-ruleForm">
+            <el-form
+                :model="nameForm"
+                :rules="rules"
+                ref="nameRef"
+                label-width="80px"
+                label-position="right"
+                class="demo-ruleForm"
+            >
                 <el-form-item label="登录名：" prop="loginName">
                     <el-input style="width: 200px" v-model="nameForm.loginName"></el-input>
                 </el-form-item>
@@ -16,7 +23,14 @@
             </el-form>
         </el-card>
         <el-card style="margin-top: 30px">
-            <el-form :model="passForm" :rules="rules" ref="passRef" label-width="80px" label-position="right" class="demo-ruleForm">
+            <el-form
+                :model="passForm"
+                :rules="rules"
+                ref="passRef"
+                label-width="80px"
+                label-position="right"
+                class="demo-ruleForm"
+            >
                 <el-form-item label="原密码：" prop="oldpass">
                     <el-input style="width: 200px" v-model="passForm.oldpass"></el-input>
                 </el-form-item>
@@ -38,42 +52,42 @@ export default {
         return {
             nameForm: {
                 loginName: '',
-                nickName: ''
+                nickName: '',
             },
             passForm: {
                 oldpass: '',
-                newpass: ''
+                newpass: '',
             },
             rules: {
                 loginName: [
                     {
                         required: 'true',
                         message: '登录名不能为空',
-                        trigger: ['change']
-                    }
+                        trigger: ['change'],
+                    },
                 ],
                 nickName: [
                     {
                         required: 'true',
                         message: '昵称不能为空',
-                        trigger: ['change']
-                    }
+                        trigger: ['change'],
+                    },
                 ],
                 oldpass: [
                     {
                         required: 'true',
                         message: '原密码不能为空',
-                        trigger: ['change']
-                    }
+                        trigger: ['change'],
+                    },
                 ],
                 newpass: [
                     {
                         required: 'true',
                         message: '新密码不能为空',
-                        trigger: ['change']
-                    }
-                ]
-            }
+                        trigger: ['change'],
+                    },
+                ],
+            },
         }
     },
     methods: {
@@ -83,7 +97,7 @@ export default {
                     this.$axios
                         .put('/name', {
                             loginName: this.nameForm.loginName,
-                            nickName: this.nameForm.nickName
+                            nickName: this.nameForm.nickName,
                         })
                         .then(() => {
                             this.$message.success('账户修改成功')
@@ -97,11 +111,10 @@ export default {
             this.$refs.passRef.validate(valid => {
                 if (valid) {
                     console.log('ces')
-
                     this.$axios
                         .put('/password', {
                             oldPass: this.passForm.oldpass,
-                            loginPassword: this.passForm.newpass
+                            loginPassword: this.passForm.newpass,
                         })
                         .then(res => {
                             this.$message.success(res.data)
@@ -115,11 +128,11 @@ export default {
                 this.nameForm.loginName = res.data.loginName
                 this.nameForm.nickName = res.data.nickName
             })
-        }
+        },
     },
     mounted() {
         this.init()
-    }
+    },
 }
 </script>
 

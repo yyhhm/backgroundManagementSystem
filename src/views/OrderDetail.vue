@@ -9,33 +9,26 @@
                             <tbody>
                                 <tr>
                                     <td>订单编号：</td>
-                                    <td>{{order.orderNo}}</td>
+                                    <td>{{ order.orderNo }}</td>
                                 </tr>
                                 <tr>
                                     <td>订单状态：</td>
-                                    <td>{{order.orderStatus | orderMap}}</td>
-
+                                    <td>{{ order.orderStatus | orderMap }}</td>
                                 </tr>
                                 <tr>
                                     <td>下单时间：</td>
-                                    <td>{{order.createTime}}</td>
+                                    <td>{{ order.createTime }}</td>
                                 </tr>
 
                                 <tr>
                                     <td>支付方式：</td>
-                                    <td v-if="order.payType==0">
-                                        无
-                                    </td>
-                                    <td v-if="order.payType==1">
-                                        支付宝支付
-                                    </td>
-                                    <td v-if="order.payType==2">
-                                        微信支付
-                                    </td>
+                                    <td v-if="order.payType == 0">无</td>
+                                    <td v-if="order.payType == 1">支付宝支付</td>
+                                    <td v-if="order.payType == 2">微信支付</td>
                                 </tr>
                                 <tr>
                                     <td>支付时间：</td>
-                                    <td>{{order.payTime}}</td>
+                                    <td>{{ order.payTime }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -48,20 +41,20 @@
                             <tbody>
                                 <tr>
                                     <td>收&nbsp; 件&nbsp;人：</td>
-                                    <td>{{order.orderAddress.name}}</td>
+                                    <td>{{ order.orderAddress.name }}</td>
                                 </tr>
                                 <tr>
+                                    <td>地 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</td>
                                     <td>
-                                        地 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</td>
-                                    <td>
-                                        {{order.orderAddress.provinceName}} {{order.orderAddress.cityName}}
-                                        {{order.orderAddress.regionName}}
-                                        {{order.orderAddress.detailAddress}}
+                                        {{ order.orderAddress.provinceName }}
+                                        {{ order.orderAddress.cityName }}
+                                        {{ order.orderAddress.regionName }}
+                                        {{ order.orderAddress.detailAddress }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>手机号码：</td>
-                                    <td>{{order.orderAddress.phone}}</td>
+                                    <td>{{ order.orderAddress.phone }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,44 +64,71 @@
         </div>
 
         <div>
-            <el-table ref="multipleTable" :data="order.orderItems" tooltip-effect="dark" style="width: 100%" :header-cell-style="headerStyle">
+            <el-table
+                ref="multipleTable"
+                :data="order.orderItems"
+                tooltip-effect="dark"
+                style="width: 100%"
+                :header-cell-style="headerStyle"
+            >
                 <el-table-column label="商品信息" width="150">
                     <template #default="scope">
-                        <img style="width: 100px; height: 100px;" @click="onChange(scope.row.bookId)" :src="scope.row.bookCoverImg.split('#')[0]" alt="主图">
+                        <img
+                            style="width: 100px; height: 100px"
+                            @click="onChange(scope.row.bookId)"
+                            :src="scope.row.bookCoverImg.split('#')[0]"
+                            alt="主图"
+                        />
                     </template>
                 </el-table-column>
-                <el-table-column width="200" prop="bookName">
-
-                </el-table-column>
+                <el-table-column width="200" prop="bookName"> </el-table-column>
                 <el-table-column prop="" label="单价" width="200">
                     <template slot-scope="scope">
-                        <span style="text-decoration: line-through;display:block;color: #999999;font-size: 14px;">￥{{scope.row.originalPrice.toFixed(2)}}
+                        <span
+                            style="
+                                text-decoration: line-through;
+                                display: block;
+                                color: #999999;
+                                font-size: 14px;
+                            "
+                            >￥{{ scope.row.originalPrice.toFixed(2) }}
                         </span>
-                        <span style="color: #000000;font-size: 16px;  display:block;">￥{{scope.row.sellingPrice.toFixed(2)}}</span>
-
+                        <span style="color: #000000; font-size: 16px; display: block"
+                            >￥{{ scope.row.sellingPrice.toFixed(2) }}</span
+                        >
                     </template>
                 </el-table-column>
-                <el-table-column label="数量" width="200" prop="bookCount">
-
-                </el-table-column>
+                <el-table-column label="数量" width="200" prop="bookCount"> </el-table-column>
                 <el-table-column prop="" label="金额(元)">
                     <template #default="scope">
-                        <span style="color: #ff0000;font-size: 16px;">￥{{(scope.row.sellingPrice*scope.row.bookCount).toFixed(2)}}</span>
+                        <span style="color: #ff0000; font-size: 16px"
+                            >￥{{ (scope.row.sellingPrice * scope.row.bookCount).toFixed(2) }}</span
+                        >
                     </template>
                 </el-table-column>
-
             </el-table>
         </div>
         <div>
             <div class="comfirm">
                 <ul>
-                    <li>总金额为: <span v-if="order.totalPrice-5<88">￥{{order.totalPrice.toFixed(2)-5}}</span>
-                        <span v-else>￥{{order.totalPrice.toFixed(2)}}</span>
-                    <li>运费: <span v-if="order.totalPrice-5<88">￥5.00</span>
+                    <li>
+                        总金额为:
+                        <span v-if="order.totalPrice - 5 < 88"
+                            >￥{{ order.totalPrice.toFixed(2) - 5 }}</span
+                        >
+                        <span v-else>￥{{ order.totalPrice.toFixed(2) }}</span>
+                    </li>
+
+                    <li>
+                        运费: <span v-if="order.totalPrice - 5 < 88">￥5.00</span>
                         <span v-else>￥0.00</span>
                     </li>
-                    <li>应付金额为: <span style="color: red;font-size: 20px;">￥{{order.totalPrice.toFixed(2)}}</span></li>
-
+                    <li>
+                        应付金额为:
+                        <span style="color: red; font-size: 20px"
+                            >￥{{ order.totalPrice.toFixed(2) }}</span
+                        >
+                    </li>
                 </ul>
             </div>
         </div>
@@ -121,7 +141,7 @@ export default {
     data() {
         return {
             orderId: 0,
-            order: {}
+            order: {},
         }
     },
     methods: {
@@ -129,7 +149,7 @@ export default {
             return {
                 background: '#f3f3f3',
                 lineHeight: '50px',
-                color: 'black'
+                color: 'black',
             }
         },
         getOrder() {
@@ -141,15 +161,15 @@ export default {
             this.$router.push({
                 path: '/detail',
                 query: {
-                    id
-                }
+                    id,
+                },
             })
-        }
+        },
     },
     created() {
         this.orderId = this.$route.query.orderId
         this.getOrder()
-    }
+    },
 }
 </script>
 
@@ -211,4 +231,3 @@ export default {
     }
 }
 </style>
-
