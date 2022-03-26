@@ -7,6 +7,17 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
@@ -32,6 +43,19 @@
     "less-loader": "^5.0.0",
     "lint-staged": "^12.3.7",
     "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.3",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "description": "## Project setup ``` npm install ```",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yyhhm/backgroundManagementSystem.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yyhhm/backgroundManagementSystem/issues"
+  },
+  "homepage": "https://github.com/yyhhm/backgroundManagementSystem#readme"
 }

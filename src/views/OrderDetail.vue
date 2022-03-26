@@ -71,9 +71,12 @@
     </div>
 
     <div>
-      <el-table ref="multipleTable" :data="order.orderItems" tooltip-effect="dark" style="width: 100%"
-        :header-cell-style="headerStyle">
-
+      <el-table   
+        ref="multipleTable" 
+        :data="order.orderItems" 
+        tooltip-effect="dark"      
+        style="width: 100%"
+         :header-cell-style="headerStyle">
         <el-table-column label="商品信息" width="150">
           <template #default="scope">
             <img style="width: 100px; height: 100px;" @click="onChange(scope.row.bookId)" :src="scope.row.bookCoverImg.split('#')[0]" alt="主图">
