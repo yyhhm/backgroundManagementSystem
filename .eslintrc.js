@@ -16,12 +16,13 @@ module.exports = {
         // 规则模版
         'eslint:recommended', // 启用一系列核心规则，
         'plugin:vue/essential',
-        'prettier', // 启用eslint vue插件的规则模版,base,essential,strongly-recommended,recommended(最严)
+        'plugin:vue/essential',
+        'plugin:prettier/recommended', // 启用eslint vue插件的规则模版,base,essential,strongly-recommended,recommended(最严)
     ],
     plugins: [
         //eslint支持使用第三方插件，需要npm先安装,后使用
         'vue',
-        'prettier', // 可以用package的名称,eslint-plugin-vue，也可以省略eslint-plugin-,直接填写vue
+        'prettier',
     ],
     rules: {
         //补充规则
