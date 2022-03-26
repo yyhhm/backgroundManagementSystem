@@ -4,9 +4,9 @@
 			<div class="header">
 				<el-input 
 				placeholder="请输入内容" 
-				size="small" v-model="inputVal" 
-				clearable style="width: 
-				250px; margin-right: 20px;">
+				size="small"
+				v-model="inputVal" 
+				clearable style="width: 250px; margin-right: 20px;">
 				</el-input>
 				<el-button type="info" @click="handleChange" size="small">查询</el-button>
 				<el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">新增图书</el-button>
