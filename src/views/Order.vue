@@ -75,8 +75,10 @@
 		<!--总数超过一页，再展示分页器-->
 		<div class="block">
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-				:current-page="currentPage" :page-sizes="[10,20,30,40]" :page-size="pageSize"
-				layout="total, sizes, prev, pager, next, jumper" :total="total">
+			:current-page="currentPage" 
+			:page-sizes="[10,20,30,40]" :page-size="pageSize"
+				
+				 layout="total, sizes, prev, pager, next, jumper" :total="total">
 			</el-pagination>
 		</div>
 	</el-card>

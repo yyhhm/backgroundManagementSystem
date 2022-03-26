@@ -1,5 +1,5 @@
 module.exports = {
-	lintOnSave: false,
+	//lintOnSave: false,
 	devServer: {
 		port:8081,
 		proxy: {
