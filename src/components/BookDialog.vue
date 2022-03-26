@@ -299,7 +299,7 @@ export default {
 
         async submitAdd() {
             // 先做验证
-            await this.$refs.refForm.validate((valid) => {
+            await this.$refs.refForm.validate(valid => {
                 if (valid) {
                     console.log('hggtrf' + this.imgCount)
                     if (this.id && this.imgCount === this.bookForm.file.length) {
@@ -330,7 +330,7 @@ export default {
             }
             if (this.id) {
                 data.bookId = this.id
-                await this.$axios.put('/books', data).then((res) => {
+                await this.$axios.put('/books', data).then(res => {
                     console.log(res)
                     if (res.code === 200) {
                         this.$message.success('修改成功')
@@ -344,7 +344,7 @@ export default {
                     }
                 })
             } else {
-                this.$axios.post('/books', data).then((res) => {
+                this.$axios.post('/books', data).then(res => {
                     console.log(res)
                     if (res.code === 200) {
                         this.$message.success('添加成功')
@@ -368,7 +368,7 @@ export default {
                         type: 3,
                     },
                 })
-                .then((res) => {
+                .then(res => {
                     this.cateList = res.data
                 })
         },
@@ -402,7 +402,7 @@ export default {
         },
         // 通过id获取到数据
         async getBookDetail(id) {
-            await this.$axios.get(`/books/${id}`).then((res) => {
+            await this.$axios.get(`/books/${id}`).then(res => {
                 this.bookForm.selectedKeys = res.data.list
                 this.bookForm.coverImg = res.data.bookCoverImg
                 this.bookForm.name = res.data.bookName
