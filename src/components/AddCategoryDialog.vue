@@ -116,7 +116,7 @@ export default {
 
         // 获取分类详情
         async getDetail(id) {
-            await this.$axios.get(`/categories/${id}`).then((res) => {
+            await this.$axios.get(`/categories/${id}`).then(res => {
                 this.ruleForm.category_name = res.data.categoryName
                 this.ruleForm.category_rank = res.data.categoryRank
                 this.ruleForm.is_ok = res.data.isOk
@@ -132,7 +132,7 @@ export default {
                         id: id,
                     },
                 })
-                .then((res) => {
+                .then(res => {
                     this.catName = res.data
                 })
         },
@@ -145,7 +145,7 @@ export default {
                         type: 2,
                     },
                 })
-                .then((res) => {
+                .then(res => {
                     this.parentCateList = res.data
                 })
         },
@@ -168,7 +168,7 @@ export default {
         },
         // 提交
         submitForm() {
-            this.$refs.formRef.validate((valid) => {
+            this.$refs.formRef.validate(valid => {
                 if (valid) {
                     if (this.type === 'add') {
                         this.$axios
