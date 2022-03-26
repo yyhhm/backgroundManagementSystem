@@ -2,14 +2,13 @@
 	<el-card>
 		<template #header>
 			<div class="header">
-				<el-input
-				  placeholder="请输入内容"
-				  v-model="inputVal"
-				  clearable
-				  style="width: 250px; margin-right: 20px;"
-				  size="small">
+				<el-input 
+				placeholder="请输入内容" 
+				size="small" v-model="inputVal" 
+				clearable style="width: 
+				250px; margin-right: 20px;">
 				</el-input>
-				 <el-button type="info" @click="handleChange" size="small">查询</el-button>
+				<el-button type="info" @click="handleChange" size="small">查询</el-button>
 				<el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">新增图书</el-button>
 			</div>
 		</template>
@@ -47,7 +46,7 @@
 					<img style="width: 100px; height: 100px;" :src="scope.row.bookCoverImg.split('#')[0]" alt="主图" >
 				</template>
 			</el-table-column>
-			</el-table-column>
+		
 			<el-table-column label="库存" prop="stockNum" width="80">
 			</el-table-column>
 			<el-table-column label="销售量" prop="saleNum" width="80">
@@ -89,7 +88,7 @@
 		},
 		data() {
 			return {
-				inputVal:"",
+				inputVal:'',
 				loading:true,
 				tableData: [],
 				//查询条件			
@@ -98,7 +97,7 @@
 
 				/* 总数据条数 */
 				total: 0,
-				type:"add",
+				type:'add',
 			}
 
 		},
@@ -121,13 +120,13 @@
 			},
 			//修改上级
 			handleStatus(id, status){		
-				 this.$axios.put('/books', {		  
-				    bookId:id,
+				this.$axios.put('/books', {		  
+					bookId:id,
 					bookSellStatus:status
-				  }).then(() => {
-				    this.$message.success('修改成功')
-				    this.getBooksList()
-				  })
+				}).then(() => {
+					this.$message.success('修改成功')
+					this.getBooksList()
+				})
 			},
 			handleAdd() {
 				this.type = 'add'
@@ -152,23 +151,23 @@
 			},
 		},
 		mounted(){
-			this.getBooksList();
+			this.getBooksList()
 		},
 		
 	}
 </script>
 
 <style>	
-	 .demo-table-expand {
-	    font-size: 0;
-	  }
-	  .demo-table-expand label {
-	    width: 90px;
-	    color: #99a9bf;
-	  }
-	  .demo-table-expand .el-form-item {
-	    margin-right: 0;
-	    margin-bottom: 0;
-	    width: 50%;
-	  }
+	.demo-table-expand {
+		font-size: 0;
+	}
+	.demo-table-expand label {
+		width: 90px;
+		color: #99a9bf;
+	}
+	.demo-table-expand .el-form-item {
+		margin-right: 0;
+		margin-bottom: 0;
+		width: 50%;
+	}
 </style>

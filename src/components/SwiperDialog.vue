@@ -24,7 +24,7 @@
 
 <script>
 	export default {
-		name: "SwiperDialog",
+		name: 'SwiperDialog',
 		props: {
 			//type: String,
 			reload: Function
@@ -62,7 +62,7 @@
 		methods: {
 			//判断上传成功的次数，删除以前上传的图
 			async handleSuccess(val) {
-				this.imgNum++;
+				this.imgNum++
 				if (this.imgNum > 1) {
 					await this.delUrl(this.ruleForm.imageUrl)
 				}
@@ -70,7 +70,7 @@
 			},
 			//删除没用的已上传图片
 			async delUrl(file) {
-				await this.$axios.delete("/deleteFile", {
+				await this.$axios.delete('/deleteFile', {
 					params: {
 						path: file
 					}
@@ -84,7 +84,7 @@
 				}
 			},
 			async open(id) {
-				this.visible = true;
+				this.visible = true
 				if (id > 0) {				
 					this.id = id
 					await this.getDetail(id)
@@ -107,7 +107,7 @@
 				this.$refs.formlRef.resetFields()
 				this.carousel_url=''
 				this.id=''
-				this.imgNum = 0;	
+				this.imgNum = 0	
 			},
 			async submitForm() {
 				this.$refs.formlRef.validate((valid) => {
@@ -115,7 +115,7 @@
 						const delImg=this.carousel_url
 						this.carousel_url = this.ruleForm.imageUrl
 						if (this.id > 0) {
-							 this.$axios.put("/carousel", {
+							this.$axios.put('/carousel', {
 								carouselId:this.id,
 								carouselUrl: this.carousel_url,
 								carouselRank: this.ruleForm.carousel_rank
@@ -130,7 +130,7 @@
 								})
 							})					
 						} else {
-							this.$axios.post("/carousel", {
+							this.$axios.post('/carousel', {
 								carouselUrl: this.carousel_url,
 								carouselRank: this.ruleForm.carousel_rank
 							}).then(() => {

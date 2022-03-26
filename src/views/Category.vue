@@ -82,15 +82,15 @@
 		},
 		methods: {
 				//获取分类所有数据
-			 getCategory() {
-				 this.$axios.get("/categories", {
+			getCategory() {
+				this.$axios.get('/categories',{
 					params: this.queryInfo
 				}).then(res => {
 					this.catelist = res.data.list
 					this.total=res.data.total
 					this.loading=false
 				}).catch(error => {
-					console.log(error);
+					console.log(error)
 				})
 				
 			},
@@ -106,10 +106,10 @@
 			},
 			//点击删除时出现提示框
 			remover_handleClick(id) {
-				this.$confirm("此操作将永久删除该模块, 是否继续?", "提示", {
-					confirmButtonText: "确定",
-					cancelButtonText: "取消",
-					type: "warning"
+				this.$confirm('此操作将永久删除该模块, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
 				}).then(() => {
 					this.removeCate(id)
 				}).catch(() => {
@@ -147,8 +147,8 @@
 		},
 
 		mounted() {
-			this.getCategory();
-			console.log("挂载成功")
+			this.getCategory()
+			console.log('挂载成功')
 		}
 	}
 </script>

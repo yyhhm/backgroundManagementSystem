@@ -139,7 +139,7 @@
 					} else {
 						for (let i = 0; i < this.multipleSelection.length; i++) {
 							if (this.multipleSelection[i].orderStatus != 1) {
-								this.$message.error("有些订单状态不是已支付")
+								this.$message.error('有些订单状态不是已支付')
 								return
 							}
 						}
@@ -148,13 +148,13 @@
 					}
 					this.$axios.put(`/order/${2}`, {
 						ids
-					}).then(res => {
-						this.$message.success("配货成功")
+					}).then(() => {
+						this.$message.success('配货成功')
 						this.getOrderList()
 					})
 
 				} else {
-					this.$message.error("请选择项")
+					this.$message.error('请选择项')
 					return
 				}
 
@@ -169,7 +169,7 @@
 					} else {
 						for (let i = 0; i < this.multipleSelection.length; i++) {
 							if (this.multipleSelection[i].orderStatus != 1) {
-								this.$message.error("有些订单状态不是已支付")
+								this.$message.error('有些订单状态不是已支付')
 								return
 							}
 						}
@@ -177,13 +177,13 @@
 					}
 					this.$axios.put(`/order/${3}`, {
 						ids
-					}).then(res => {
-						this.$message.success("出库成功")
+					}).then(() => {
+						this.$message.success('出库成功')
 						this.getOrderList()
 					})
 
 				} else {
-					this.$message.error("请选择项")
+					this.$message.error('请选择项')
 					return
 				}
 			},
@@ -195,7 +195,7 @@
 					} else {
 						for (let i = 0; i < this.multipleSelection.length; i++) {
 							if (!this.multipleSelection[i].orderStatus == 0) {
-								this.$message.error("某些订单状态不是未支付，不能关闭")
+								this.$message.error('某些订单状态不是未支付，不能关闭')
 								return
 							}
 						}
@@ -203,13 +203,13 @@
 					}
 					this.$axios.put(`/order/${-2}`, {
 						ids
-					}).then(res => {
-						this.$message.success("关闭成功")
+					}).then(() => {
+						this.$message.success('关闭成功')
 						this.getOrderList()
 					})
 
 				} else {
-					this.$message.error("请选择项")
+					this.$message.error('请选择项')
 					return
 				}
 			},
@@ -222,7 +222,7 @@
 					} else {
 						for (let i = 0; i < this.multipleSelection.length; i++) {
 							if (this.multipleSelection[i].orderStatus != -3) {
-								this.$message.error("某些订单状态，不是用户退款状态，不能退款")
+								this.$message.error('某些订单状态，不是用户退款状态，不能退款')
 								return
 							}
 						}
@@ -230,13 +230,13 @@
 					}
 					this.$axios.put(`/order/${-4}`, {
 						ids
-					}).then(res => {
-						this.$message.success("商家退款成功")
+					}).then(() => {
+						this.$message.success('商家退款成功')
 						this.getOrderList()
 					})
 
 				} else {
-					this.$message.error("请选择项")
+					this.$message.error('请选择项')
 					return
 				}
 			},
@@ -260,7 +260,7 @@
 				this.getOrderList()
 			},
 			getOrderList() {
-				this.$axios("/orders/list", {
+				this.$axios('/orders/list', {
 					params: {
 						currentPage: this.currentPage,
 						pageSize: this.pageSize,

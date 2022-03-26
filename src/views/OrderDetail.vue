@@ -76,7 +76,7 @@
 
         <el-table-column label="商品信息" width="150">
           <template #default="scope">
-            <img style="width: 100px; height: 100px;"@click="onChange(scope.row.bookId)" :src="scope.row.bookCoverImg.split('#')[0]" alt="主图">
+            <img style="width: 100px; height: 100px;" @click="onChange(scope.row.bookId)" :src="scope.row.bookCoverImg.split('#')[0]" alt="主图">
           </template>
         </el-table-column>
         <el-table-column width="200" prop="bookName">
@@ -107,7 +107,7 @@
       <div class="comfirm">
         <ul>
           <li>总金额为: <span v-if="order.totalPrice-5<88">￥{{order.totalPrice.toFixed(2)-5}}</span>
-            <span v-else>￥{{order.totalPrice.toFixed(2)}}</span< /li>
+            <span v-else>￥{{order.totalPrice.toFixed(2)}}</span>
           <li>运费: <span v-if="order.totalPrice-5<88">￥5.00</span>
             <span v-else>￥0.00</span>
           </li>
@@ -121,7 +121,7 @@
 
 <script>
   export default {
-    name: "OrderDetail",
+    name: 'OrderDetail',
     data() {
       return {
         orderId: 0,
@@ -132,9 +132,9 @@
     methods: {
       headerStyle() {
         return {
-          background: "#f3f3f3",
-          lineHeight: "50px",
-          color: "black",
+          background: '#f3f3f3',
+          lineHeight: '50px',
+          color: 'black',
         }
       },
       getOrder() {
@@ -163,9 +163,6 @@
 
     min-height: 500px;
     margin: 20px 40px;
-
-   
-
     >div {
       margin-top: 20px;
     }

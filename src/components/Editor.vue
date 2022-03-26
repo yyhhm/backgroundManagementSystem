@@ -20,8 +20,8 @@
 		},
 		methods:{
 			isClear(){
-				this.editor.txt.clear();
-				this.info_ = null;
+				this.editor.txt.clear()
+				this.info_ = null
 			}
 		},
 		mounted() {
@@ -55,7 +55,7 @@
 					console.log('error', xhr, resData)
 				},
 				// 上传图片超时
-				timeout: function(xhr) {
+				timeout: function() {
 					console.log('timeout')
 				},
 				// 图片上传并返回了结果，想要自己把图片插入到编辑器中
@@ -73,7 +73,7 @@
 		
 			//详情有文字或图片时，删掉请输入正文
 			this.editor.config.onchange = (html) => {
-				this.info_ = html;
+				this.info_ = html
 				this.$emit('change', this.info_)
 			}
 			
@@ -82,8 +82,8 @@
 			//编辑图书时初始化
 			content: function(val) {
 				if (val !== this.editor.txt.html()) {
-					console.log("LLl")
-					this.editor.txt.html(val);
+					console.log('LLl')
+					this.editor.txt.html(val)
 				}
 			}
 		}

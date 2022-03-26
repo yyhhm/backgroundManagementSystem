@@ -73,21 +73,21 @@
 				if (this.multipleSelection.length > 0 || id >0) {
 					
 					if (this.multipleSelection.length) {
-						console.log("fffffff")
+						console.log('fffffff')
 						ids = this.multipleSelection.map(item => item.userId)
 					}
 					if (id >0) {
-						console.log("fffffgggggggff"+id)
+						console.log('fffffgggggggff'+id)
 						ids.push(id)
 					}
 				} else {
-					this.$message.error("请选择项")
+					this.$message.error('请选择项')
 					return
 				}
 				this.$axios.put(`/users/${0}`, {
 					ids
-				}).then(res => {
-					this.$message.success("解除成功")
+				}).then(() => {
+					this.$message.success('解除成功')
 					this.getUserList()
 				})
 			},
@@ -101,13 +101,13 @@
 						ids.push(id)
 					}
 				} else {
-					this.$message.error("请选择项")
+					this.$message.error('请选择项')
 					return
 				}
 				this.$axios.put(`/users/${1}`, {
 					ids
-				}).then(res => {
-					this.$message.success("禁用成功")
+				}).then(() => {
+					this.$message.success('禁用成功')
 					this.getUserList()
 				})
 			},
@@ -122,7 +122,7 @@
 				this.getUserList()
 			},
 			getUserList() {
-				this.$axios.get("/user/list", {
+				this.$axios.get('/user/list', {
 					params: {
 						currentPage: this.currentPage,
 						pageSize: this.pageSize,

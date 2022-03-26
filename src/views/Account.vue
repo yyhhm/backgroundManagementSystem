@@ -79,18 +79,18 @@
 						this.$axios.put('/name', {
 							loginName: this.nameForm.loginName,
 							nickName: this.nameForm.nickName
-						}).then(res => {
-							this.$message.success("账户修改成功")
+						}).then(() => {
+							this.$message.success('账户修改成功')
 							window.location.reload()
 						})
 					}
 				})
 			},
 			submitPass() {
-				console.log("11="+this.passForm.oldpass instanceof String)
+				console.log('11='+this.passForm.oldpass instanceof String)
 				this.$refs.passRef.validate((valid) => {
 					if (valid) {
-						console.log("ces")
+						console.log('ces')
 						
 						this.$axios.put('/password', {		
 							

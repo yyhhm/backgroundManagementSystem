@@ -5,8 +5,13 @@
 				<div class="bmsName">
 					网上书店后台管理系统
 				</div>
-				<el-menu router unique-opened :default-active="$route.path" background-color="#35373f" text-color="#fff"
-					active-text-color="#78ffe9">
+				<el-menu 
+				router 
+				unique-opened 
+				:default-active="$route.path" 
+				background-color="#35373f" 
+				text-color="#fff"
+				active-text-color="#78ffe9">
 				
 					<el-submenu index="1">
 						<template #title>

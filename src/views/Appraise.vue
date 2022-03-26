@@ -72,7 +72,7 @@
 
 <script>
 	export default {
-		name: "Appraise",
+		name: 'Appraise',
 		data() {
 			return {
 				tableData: [],
@@ -96,7 +96,7 @@
         this.getAppraise()
       },
       getAppraise() {
-        this.$axios.get("/appraise/list", {
+        this.$axios.get('/appraise/list', {
           params: {
             pageSize: this.pageSize,
             currentPage: this.currentPage,
@@ -117,23 +117,23 @@
           ids = [id]
         } else {
           if (this.multipleSelection.length == 0) {
-            this.$message.error("请选择项")
+            this.$message.error('请选择项')
             return
           }
           ids = this.multipleSelection.map(item => item.appraiseId)
         }
-        this.$confirm("此操作将永久删除记录, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
+        this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
         }).then(() => {
-          this.$axios.delete("/appraise/delByIds", {
+          this.$axios.delete('/appraise/delByIds', {
             params: {
-              ids: ids.join(",")
+              ids: ids.join(',')
             }
           }).then(() => {
             this.getAppraise()
-            this.$message.success("删除成功")
+            this.$message.success('删除成功')
           })
         }).catch(() => {
           this.$message({

@@ -6,10 +6,10 @@
 
 <style>
 	*{
-	  padding: 0;
-	  margin: 0;
-	  list-style: none;
-	  box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+    list-style: none;
+		box-sizing: border-box;
 	}
 	.img{
 		height: 100px;
@@ -18,8 +18,7 @@
 </style>
 <script>	
 	export default {
-		name: 'App',
-	
+		name: 'App',	
 		data(){			
 			return{			
 				

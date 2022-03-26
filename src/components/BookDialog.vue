@@ -52,10 +52,10 @@
 			</el-form-item> -->
 		</el-form>
 		<div slot="footer" class="dialog-footer">
-		  <el-button @click="visible = false">取 消</el-button>
-		  <el-button type="primary" @click="submitAdd">确 定</el-button>
+		<el-button @click="visible = false">取 消</el-button>
+		<el-button type="primary" @click="submitAdd">确 定</el-button>
 		</div>
-	 </el-dialog>
+	</el-dialog>
 </template>
 
 <script>
@@ -66,15 +66,15 @@
 			Editor
 		},
 		props: {
-		  reload: Function,
-		  type: String,
+			reload: Function,
+			type: String,
 		},
 
 		data() {
 			const validateCheckPrice = (rule, value, callback) => {
 				if (this.bookForm.originalPrice && this.bookForm.sellingPrice) {
 					if (this.bookForm.sellingPrice >= this.bookForm.originalPrice) {
-						callback(new Error('实际售价必须小于原价'));
+						callback(new Error('实际售价必须小于原价'))
 					} else {
 						callback()
 					}
@@ -200,7 +200,7 @@
 			//编辑框 实时赋值
 			getDetail(html) {
 				console.log(html)
-				this.bookForm.detailContent = html;
+				this.bookForm.detailContent = html
 			},
 			//主图改变时，判断图片数量
 			async handleChange(file, fileList) {
@@ -210,52 +210,52 @@
 				}
 				console.log('iiiiiiiiiiiiiiiiiiii')
 				const sufix = file.name.split('.')[1] || ''
-				const isLt2M = file.size / 1024 / 1024 < 2;
+				const isLt2M = file.size / 1024 / 1024 < 2
 				if (!['jpg', 'jpeg', 'png'].includes(sufix)) {
-					this.$message.error('请上传 jpg、jpeg、png 格式的图片');
+					this.$message.error('请上传 jpg、jpeg、png 格式的图片')
 					this.$refs.upload.handleRemove(file)
-					return false;
+					return false
 				}
 				if (!isLt2M) {
-					this.$message.error('上传图片大小不能超过 2MB!');
+					this.$message.error('上传图片大小不能超过 2MB!')
 					this.$refs.upload.handleRemove(file)
-					return false;
+					return false
 				}
 				if (this.id) {
-					this.bookForm.coverImg = "";
-					this.imgCount = 0;
+					this.bookForm.coverImg = ''
+					this.imgCount = 0
 					for (let i = 0; i < fileList.length; i++) {
-						if (fileList[i].url.indexOf("image") != -1) {
+						if (fileList[i].url.indexOf('image') != -1) {
 							this.bookForm.coverImg += fileList[i].url
-							this.bookForm.coverImg += "#"
-							this.imgCount++;
+							this.bookForm.coverImg += '#'
+							this.imgCount++
 						}
 					}
 				}
 				//是否显示后面的图片增加框
-				this.noneBtnImg = fileList.length >= this.limit;
+				this.noneBtnImg = fileList.length >= this.limit
 				//每次图片改变都要做验证
 				this.bookForm.file = fileList
 				this.$refs.refForm.validateField('file')
-				return file;
+				return file
 			},
 			//删除主图
 			handleRemove(file, fileList) {
 				//编辑时,删除图片
 				if (this.id) {
-					this.bookForm.coverImg = "";
-					this.imgCount = 0;
+					this.bookForm.coverImg = ''
+					this.imgCount = 0
 					for (let i = 0; i < fileList.length; i++) {
 						//记录已上传的图片路径和数量
-						if (fileList[i].url.indexOf("image") != -1) {
+						if (fileList[i].url.indexOf('image') != -1) {
 							this.bookForm.coverImg += fileList[i].url
-							this.bookForm.coverImg += "#"
-							this.imgCount++;
+							this.bookForm.coverImg += '#'
+							this.imgCount++
 						}
 					}
 					
 				}
-				this.noneBtnImg = fileList.length >= this.limit;
+				this.noneBtnImg = fileList.length >= this.limit
 				this.bookForm.file = fileList
 				this.$refs.refForm.validateField('file')
 			},
@@ -265,14 +265,14 @@
 				//先做验证
 				await this.$refs.refForm.validate((valid) => {
 					if (valid) {
-						console.log("hggtrf"+ this.imgCount)
+						console.log('hggtrf'+ this.imgCount)
 						if (this.id && this.imgCount == this.bookForm.file.length) {
 							this.submitForm()
 						} else {
 							this.$refs.upload.submit()
 						}
 					} else {
-						console.log("error submit!!");
+						console.log('error submit!!')
 					}
 				})
 
@@ -294,17 +294,17 @@
 					bookCategoryPid: this.categoryPid,
 				}
 				if (this.id) {
-					data.bookId = this.id;
+					data.bookId = this.id
 					await this.$axios.put('/books', data).then(res => {
 						console.log(res)
 						if (res.code == 200) {
-							this.$message.success("修改成功");
+							this.$message.success('修改成功')
 							
 							this.visible=false
 							this.reload()
 
 						} else {
-							this.$message.fail("修改失败")
+							this.$message.fail('修改失败')
 							this.visible=false
 							this.reload()
 						}
@@ -313,11 +313,11 @@
 					this.$axios.post('/books', data).then(res => {
 						console.log(res)
 						if (res.code == 200) {
-							this.$message.success("添加成功");
+							this.$message.success('添加成功')
 							this.visible=false
 							this.reload()
 						} else {
-							this.$message.fail("添加失败")
+							this.$message.fail('添加失败')
 							this.visible=false
 							this.reload()
 						}
@@ -328,7 +328,7 @@
 			
 			//获得级联数据
 			async getCateList() {
-				await this.$axios.get("/categories", {
+				await this.$axios.get('/categories', {
 					params: {
 						type: 3,
 					}
@@ -346,9 +346,9 @@
 
 			handleUrlSuccess(res, file, fileList) {
 				this.bookForm.coverImg += res.data || ''
-				this.bookForm.coverImg += "#"
-				this.imgCount++;
-				console.log("dddddd+"+this.imgCount)
+				this.bookForm.coverImg += '#'
+				this.imgCount++
+				console.log('dddddd+'+this.imgCount)
 				if (this.imgCount == fileList.length) {
 					this.submitForm()
 				}
@@ -356,7 +356,7 @@
 			//获取图片数据
 			//this.bookForm.coverImg是类似"image/aaa.jpg#image/bbb.jpg#""字符串
 			getImg() {
-				let str = this.bookForm.coverImg.split("#")
+				let str = this.bookForm.coverImg.split('#')
 				for (let i = 0; i < str.length - 1; i++) {
 					let obj = new Object()
 					obj.url = str[i]
@@ -392,12 +392,12 @@
 					await this.getBookDetail(id)
 					await this.getImg()
 				}
-				console.log("init完成")
+				console.log('init完成')
 			},
 			handleClose(){
 				this.$refs.editor.isClear()
 				this.visible=false
-				this.$refs.refForm.resetFields();
+				this.$refs.refForm.resetFields()
 				this.imgCount=0
 				
 			},

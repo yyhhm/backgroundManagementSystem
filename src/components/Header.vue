@@ -15,7 +15,7 @@
 				<div class="nickname">
 					<p>登录名：{{ userInfo && userInfo.loginName || '' }}</p>
 					<p>昵称：{{ userInfo && userInfo.nickName || '' }}</p>
-					 <el-button size="small" type="primary"  @click="logout">退出</el-button> 
+					<el-button size="small" type="primary"  @click="logout">退出</el-button> 
 				</div>
 			</el-popover>
 		</div>
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-	import {pathMap} from '../until/index.js'
+	
 	export default {
-		name: "Header",
+		name: 'Header',
 		components: {
 			
 		},
@@ -33,7 +33,7 @@
 			return {
 				userInfo: null,
 				hasBack: false,
-				name:"系统介绍"
+				name:'系统介绍'
 			}
 		},
 		
@@ -45,10 +45,10 @@
 				})
 			},
 			logout() {
-			  this.$axios.delete('/logout').then(() => {
-				window.localStorage.removeItem('token')
-			    window.location.reload()
-			  })
+				this.$axios.delete('/logout').then(() => {
+					window.localStorage.removeItem('token')
+					window.location.reload()
+				})
 			}
 		},
 		mounted(){	

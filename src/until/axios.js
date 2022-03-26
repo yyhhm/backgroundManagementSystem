@@ -1,6 +1,6 @@
-import axios from "axios"
-import router from "../router/index.js"
-import { Message } from "element-ui"
+import axios from 'axios'
+import router from '../router/index.js'
+import { Message } from 'element-ui'
 axios.defaults.baseURL = '/admin'
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['token'] = window.localStorage.getItem('token') || ''

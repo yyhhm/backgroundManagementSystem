@@ -46,9 +46,9 @@
 </template>
 
 <script>
-	import SwiperDialog from "../components/SwiperDialog.vue"
+	import SwiperDialog from '../components/SwiperDialog.vue'
 	export default{
-		name:"Swiper",
+		name:'Swiper',
 		components:{
 			SwiperDialog
 		},
@@ -70,10 +70,10 @@
 				this.$refs.dialog.open()
 			},
 			remover_handleClick(id) {
-				this.$confirm("此操作将永久删除该模块, 是否继续?", "提示", {
-					confirmButtonText: "确定",
-					cancelButtonText: "取消",
-					type: "warning"
+				this.$confirm('此操作将永久删除该模块, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
 				}).then(() => {
 					this.handleRemove(id)
 				}).catch(() => {
@@ -99,7 +99,7 @@
 				this.getSwiper()
 			},		
 			getSwiper(){
-				this.$axios.get("/carousel/list",{
+				this.$axios.get('/carousel/list',{
 					params: {
 						currentPage: this.currentPage,
 						pageSize: this.pageSize,
