@@ -4,12 +4,11 @@ module.exports = {
         port: 8081,
         proxy: {
             '/admin': {
-                target: 'http://localhost:8089'
+                target: 'http://localhost:8089',
             },
             '/image': {
-                target: 'http://localhost:8089'
-            }
-
-        }
-    }
+                target: 'http://localhost:8089',
+            },
+        },
+    },
 }
