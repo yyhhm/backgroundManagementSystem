@@ -6,7 +6,6 @@
         width="400px"
         @close="handleClose"
     >
-        //测试
         <el-form ref="formRef" :model="ruleForm" :rules="rules" label-width="100px">
             <el-form-item label="分类名称" prop="category_name">
                 <el-input v-model="ruleForm.category_name" type="text"></el-input>

@@ -102,7 +102,12 @@ export default {
         handleEadit(id) {
             this.$refs.dialog.open(id)
         },
-        handleRemove() {},
+        handleRemove(id) {
+            this.$axios.delete(`carousel/${id}`).then(() => {
+                this.$message('删除成功')
+                this.getSwiper()
+            })
+        },
 
         handleSizeChange(newSize) {
             this.pageSize = newSize
@@ -121,7 +126,7 @@ export default {
                         pageSize: this.pageSize,
                     },
                 })
-                .then((res) => {
+                .then(res => {
                     this.tableData = res.data.list
                     this.total = res.data.total
                     this.loading = false

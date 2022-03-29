@@ -17,7 +17,7 @@
                                 </tr>
                                 <tr>
                                     <td>下单时间：</td>
-                                    <td>{{ order.createTime }}</td>
+                                    <td>{{ order.createTime | time }}</td>
                                 </tr>
 
                                 <tr>
@@ -28,7 +28,7 @@
                                 </tr>
                                 <tr>
                                     <td>支付时间：</td>
-                                    <td>{{ order.payTime }}</td>
+                                    <td>{{ order.payTime | time }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -91,10 +91,10 @@
                                 color: #999999;
                                 font-size: 14px;
                             "
-                            >￥{{ scope.row.originalPrice.toFixed(2) }}
+                            >￥{{ scope.row.originalPrice | price }}
                         </span>
                         <span style="color: #000000; font-size: 16px; display: block"
-                            >￥{{ scope.row.sellingPrice.toFixed(2) }}</span
+                            >￥{{ scope.row.sellingPrice | price }}</span
                         >
                     </template>
                 </el-table-column>
@@ -102,7 +102,7 @@
                 <el-table-column prop="" label="金额(元)">
                     <template #default="scope">
                         <span style="color: #ff0000; font-size: 16px"
-                            >￥{{ (scope.row.sellingPrice * scope.row.bookCount).toFixed(2) }}</span
+                            >￥{{ (scope.row.sellingPrice * scope.row.bookCount) | price }}</span
                         >
                     </template>
                 </el-table-column>
@@ -114,9 +114,9 @@
                     <li>
                         总金额为:
                         <span v-if="order.totalPrice - 5 < 88"
-                            >￥{{ order.totalPrice.toFixed(2) - 5 }}</span
+                            >￥{{ (order.totalPrice - 5) | price }}</span
                         >
-                        <span v-else>￥{{ order.totalPrice.toFixed(2) }}</span>
+                        <span v-else>￥{{ order.totalPrice | price }}</span>
                     </li>
 
                     <li>

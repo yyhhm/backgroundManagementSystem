@@ -43,7 +43,11 @@
         >
             <el-table-column type="selection" width="55"> </el-table-column>
             <el-table-column prop="orderNo" label="订单号" width="200"> </el-table-column>
-            <el-table-column prop="totalPrice" label="订单总价" width="120"> </el-table-column>
+            <el-table-column prop="totalPrice" label="订单总价" width="120">
+                <template #default="scope">
+                    <span>{{ scope.row.totalPrice | price }}</span>
+                </template>
+            </el-table-column>
             <el-table-column prop="orderStatus" label="订单状态" width="120">
                 <template #default="scope">
                     <span>{{ scope.row.orderStatus | orderMap }}</span>

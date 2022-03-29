@@ -30,7 +30,13 @@
                 <el-input v-model="bookForm.publish" class="input"></el-input>
             </el-form-item>
             <el-form-item label="价格" prop="originalPrice">
-                <el-input type="number" v-model="bookForm.originalPrice" class="input"></el-input>
+                <el-input
+                    type="number"
+                    v-model="bookForm.originalPrice"
+                    class="input"
+                    min="0.01"
+                    step="0.01"
+                ></el-input>
             </el-form-item>
             <el-form-item label="实际售价" prop="sellingPrice">
                 <el-input type="number" v-model="bookForm.sellingPrice" class="input"></el-input>
@@ -94,9 +100,19 @@ export default {
 
     data() {
         const validateCheckPrice = (rule, value, callback) => {
+            if (value <= 0) {
+                callback(new Error('价格不能为负或0'))
+            }
+            const ArrMen = value.toString().split('.') // 截取字符串
+            if (ArrMen.length === 2) {
+                if (ArrMen[1].length > 2) {
+                    // 判断小数点后面的字符串长度
+                    callback(new Error('只能输出两位小数'))
+                }
+            }
             if (this.bookForm.originalPrice && this.bookForm.sellingPrice) {
-                if (this.bookForm.sellingPrice >= this.bookForm.originalPrice) {
-                    callback(new Error('实际售价必须小于原价'))
+                if (this.bookForm.sellingPrice > this.bookForm.originalPrice) {
+                    callback(new Error('实际售价必须小于或等于原价'))
                 } else {
                     callback()
                 }
@@ -178,10 +194,12 @@ export default {
 
                 originalPrice: [
                     {
-                        required: true, // 是否必填
+                        required: true, // 要求输入不能为空
+
                         message: '原价不能为空', // 规则
                         trigger: 'change', // 何事件触发
                     },
+
                     {
                         validator: validateCheckPrice,
                         trigger: 'change',
@@ -245,7 +263,6 @@ export default {
             if (file.status !== 'ready') {
                 return
             }
-            console.log('iiiiiiiiiiiiiiiiiiii')
             const sufix = file.name.split('.')[1] || ''
             const isLt2M = file.size / 1024 / 1024 < 2
             if (!['jpg', 'jpeg', 'png'].includes(sufix)) {

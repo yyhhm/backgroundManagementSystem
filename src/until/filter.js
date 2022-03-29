@@ -28,5 +28,8 @@ const time = value => {
         .replace(/T/g, ' ')
         .replace(/\.[\d]{3}Z/, '')
 }
+const price = value => {
+    return value.toFixed(2)
+}
 
-export { orderMap, time }
+export { orderMap, time, price }

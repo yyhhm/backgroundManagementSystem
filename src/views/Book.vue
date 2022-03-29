@@ -30,7 +30,7 @@
                             <span>{{ props.row.bookPublish }}</span>
                         </el-form-item>
                         <el-form-item label="价格">
-                            <span>{{ props.row.originalPrice }}</span>
+                            <span>{{ props.row.originalPrice | price }}</span>
                         </el-form-item>
                         <el-form-item label="简介">
                             <span>{{ props.row.bookIntro }}</span>
@@ -57,7 +57,11 @@
 
             <el-table-column label="库存" prop="stockNum" width="80"> </el-table-column>
             <el-table-column label="销售量" prop="saleNum" width="80"> </el-table-column>
-            <el-table-column label="实际售价" prop="sellingPrice" width="100"> </el-table-column>
+            <el-table-column label="实际售价" prop="sellingPrice" width="100">
+                <template #default="scope">
+                    {{ scope.row.sellingPrice | price }}
+                </template>
+            </el-table-column>
             <el-table-column label="上架状态" width="100">
                 <template #default="scope">
                     <span style="color: green" v-if="scope.row.bookSellStatus == 0">销售中</span>

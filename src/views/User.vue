@@ -93,7 +93,7 @@ export default {
             if (this.multipleSelection.length > 0 || id > 0) {
                 if (this.multipleSelection.length) {
                     console.log('fffffff')
-                    ids = this.multipleSelection.map((item) => item.userId)
+                    ids = this.multipleSelection.map(item => item.userId)
                 }
                 if (id > 0) {
                     console.log('fffffgggggggff' + id)
@@ -116,7 +116,7 @@ export default {
             let ids = []
             if (this.multipleSelection.length > 0 || id > 0) {
                 if (this.multipleSelection.length) {
-                    ids = this.multipleSelection.map((item) => item.userId)
+                    ids = this.multipleSelection.map(item => item.userId)
                 }
                 if (id > 0) {
                     ids.push(id)
@@ -152,7 +152,7 @@ export default {
                         pageSize: this.pageSize,
                     },
                 })
-                .then((res) => {
+                .then(res => {
                     this.tableData = res.data.list
                     this.total = res.data.total
                     this.loading = false

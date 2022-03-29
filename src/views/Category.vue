@@ -113,12 +113,12 @@ export default {
                 .get('/categories', {
                     params: this.queryInfo,
                 })
-                .then((res) => {
+                .then(res => {
                     this.catelist = res.data.list
                     this.total = res.data.total
                     this.loading = false
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.log(error)
                 })
         },
