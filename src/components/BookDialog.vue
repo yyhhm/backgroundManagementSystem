@@ -120,6 +120,13 @@ export default {
                 callback()
             }
         }
+        const validateCategory = (rule, value, callback) => {
+            if (value.length !== 3) {
+                callback(new Error('必须选择第三级数据'))
+            } else {
+                callback()
+            }
+        }
         return {
             visible: false,
             // 编辑时获取已上传图片数量
@@ -135,11 +142,13 @@ export default {
             // 分类的列表数据
             cateList: [],
             // 用来编辑时回显已经上传过的图片数据
+
             bookForm: {
                 // 用来判断有没有图
                 file: [],
                 // 判段有没有选择第三级数据
                 selectedKeys: [],
+                selectedKeys1: [],
                 // 提交的图片路径数据
                 coverImg: '',
                 name: '',
@@ -164,8 +173,7 @@ export default {
             rules: {
                 selectedKeys: [
                     {
-                        required: true, // 是否必填
-                        message: '必须选择第三级数据', // 规则
+                        validator: validateCategory,
                         trigger: 'change', // 何事件触发
                     },
                 ],
@@ -391,8 +399,11 @@ export default {
         },
         // 分类数据改变时
         handleChangeCate(val) {
-            this.categoryId = val[2]
-            this.categoryPid = val[1]
+            console.log(...val)
+            if (val) {
+                this.categoryId = val[2]
+                this.categoryPid = val[1]
+            }
         },
 
         handleUrlSuccess(res, file, fileList) {
@@ -407,20 +418,24 @@ export default {
         // 获取图片数据
         // this.bookForm.coverImg是类似"image/aaa.jpg#image/bbb.jpg#""字符串
         getImg() {
-            const str = this.bookForm.coverImg.split('#')
-            for (let i = 0; i < str.length - 1; i++) {
-                const obj = {}
-                obj.url = str[i]
-                // 编辑时用来回显已上传过的图片
-                this.bookForm.file.push(obj)
-                this.imgCount++
-            }
+            let str = this.bookForm.coverImg.split('#')
+            str.pop()
+            this.bookForm.file = str.map(item => {
+                return {
+                    url: item,
+                }
+            })
+            this.keyIndex++
+
+            this.imgCount = str.length
             this.noneBtnImg = this.bookForm.file.length >= this.limit
         },
         // 通过id获取到数据
         async getBookDetail(id) {
             await this.$axios.get(`/books/${id}`).then(res => {
-                this.bookForm.selectedKeys = res.data.list
+                this.bookForm.selectedKeys1 = res.data.list
+                // console.log(...this.bookForm.selectedKeys1)
+                // this.bookForm = res.data
                 this.bookForm.coverImg = res.data.bookCoverImg
                 this.bookForm.name = res.data.bookName
                 this.bookForm.intro = res.data.bookIntro
@@ -432,28 +447,29 @@ export default {
                 this.bookForm.author = res.data.bookAuthor
                 this.bookForm.publish = res.data.bookPublish
                 this.categoryId = res.data.bookCategoryId
+                this.categoryPid = res.data.bookCategoryPid
+                this.$set(this.bookForm, 'selectedKeys', res.data.list)
             })
         },
         // 编辑初始化事件
         async open(id) {
             this.id = id
-            this.visible = true
             await this.getCateList()
             if (id > 0) {
-                await this.getBookDetail(id)
-                await this.getImg()
+                await Promise.all([this.getBookDetail(id), this.getImg()])
             }
-            console.log('init完成')
+            console.log(this.bookForm.selectedKeys1)
+            this.visible = true
         },
         handleClose() {
             this.$refs.editor.isClear()
-            this.visible = false
-            this.$refs.refForm.resetFields()
+
+            // this.$refs.refForm.resetFields()
             this.imgCount = 0
+            this.visible = false
         },
     },
     mounted() {},
-    created() {},
 }
 </script>
 

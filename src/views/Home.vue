@@ -33,7 +33,7 @@
                                 ><i class="el-icon-reading" />图书管理</el-menu-item
                             >
                             <el-menu-item index="/user"
-                                ><i class="el-icon-user-solid" />会员管理</el-menu-item
+                                ><i class="el-icon-user-solid" />用户管理</el-menu-item
                             >
                             <el-menu-item index="/order"
                                 ><i class="el-icon-s-order" />订单管理</el-menu-item

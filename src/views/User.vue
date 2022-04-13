@@ -92,25 +92,19 @@ export default {
             let ids = []
             if (this.multipleSelection.length > 0 || id > 0) {
                 if (this.multipleSelection.length) {
-                    console.log('fffffff')
                     ids = this.multipleSelection.map(item => item.userId)
                 }
                 if (id > 0) {
-                    console.log('fffffgggggggff' + id)
                     ids.push(id)
                 }
             } else {
                 this.$message.error('请选择项')
                 return
             }
-            this.$axios
-                .put(`/users/${0}`, {
-                    ids,
-                })
-                .then(() => {
-                    this.$message.success('解除成功')
-                    this.getUserList()
-                })
+            this.$axios.put(`/users/${0}`, ids).then(() => {
+                this.$message.success('解除成功')
+                this.getUserList()
+            })
         },
         handleForbid(id) {
             let ids = []
@@ -125,14 +119,10 @@ export default {
                 this.$message.error('请选择项')
                 return
             }
-            this.$axios
-                .put(`/users/${1}`, {
-                    ids,
-                })
-                .then(() => {
-                    this.$message.success('禁用成功')
-                    this.getUserList()
-                })
+            this.$axios.put(`/users/${1}`, ids).then(() => {
+                this.$message.success('禁用成功')
+                this.getUserList()
+            })
         },
         handleSizeChange(newSize) {
             this.pageSize = newSize

@@ -223,8 +223,8 @@ export default {
                     ids.push(id)
                 } else {
                     for (let i = 0; i < this.multipleSelection.length; i++) {
-                        if (this.multipleSelection[i].orderStatus !== 1) {
-                            this.$message.error('有些订单状态不是已支付')
+                        if (this.multipleSelection[i].orderStatus !== 2) {
+                            this.$message.error('有些订单状态不是配货完成')
                             return
                         }
                     }
